@@ -45,7 +45,12 @@ returned board is the board that would result from:
 ```
 
 ## winner
-
+- need to check all rows
+-- in any row, just need to return the first cell if they are all the same and they do not equal none.
+- need to check all columns
+-- in any column, just need to return the first cell if they are all the same and they do not equal none.
+- need to check diagonals
+-- both top left -> bottom right; and, bottom left -> top right.
 ## terminal
 
 ## utility
