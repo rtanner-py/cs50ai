@@ -84,6 +84,7 @@ if TERMINAL($state$):
 
 for the minimax() function:
 - check the current player. If it is X then:
+```
     $v$ = -∞$$
     loop through all actions for the given board
         set k to min_value for the resulting board given (board, action)
@@ -92,7 +93,14 @@ for the minimax() function:
             best move = action
             if v == 1:  
                 break
-- if O, then v = + infinity; k = max_value; if k < v; if v== -1
+```
+- if O, then:
+``` 
+v = + infinity; 
+k = max_value; 
+if k < v; 
+if v== -1
+```
 
 ## alpha-beta pruning
 - need to keep track of alpha (highest) and beta (lowest) values that X (maximizing) and O (minimizing) can guarantee
