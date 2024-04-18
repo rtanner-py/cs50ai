@@ -100,7 +100,7 @@ for the minimax() function:
 - if, at any point, alpha >= beta, then stop because opponent would not allow game to reach that state.
 
 so:
-current_player = player(baord)
+```current_player = player(baord)
 best_move = None
 alpha = -inf
 beta = inf
@@ -120,3 +120,4 @@ k = max_value(result(board, action), alpha, beta)
 beta = min(beta, v)
 if alpha >= beta:
     break
+```
