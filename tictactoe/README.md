@@ -85,7 +85,7 @@ if TERMINAL($state$):
 for the minimax() function:
 - check the current player. If it is X then:
 ```
-    $v$ = -∞$$
+    v = -∞
     loop through all actions for the given board
         set k to min_value for the resulting board given (board, action)
         if k > v
@@ -94,12 +94,12 @@ for the minimax() function:
             if v == 1:  
                 break
 ```
-- if O, then:
+- if O, then substitute
 ``` 
-v = + infinity; 
-k = max_value; 
-if k < v; 
-if v== -1
+    v = + infinity; 
+    k = max_value; 
+    if k < v; 
+    if v== -1
 ```
 
 ## alpha-beta pruning
