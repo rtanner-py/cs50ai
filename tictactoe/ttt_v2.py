@@ -92,7 +92,7 @@ def utility(board):
             return 0
 
 
-def minimax(board):
+def minimax(board, depth=math.inf):
     """
     Returns the optimal action for the current player on the board.
     """
@@ -107,48 +107,47 @@ def minimax(board):
     if current_player == X:
         v = -math.inf
         for action in actions(board):
-            k = min_value(result(board, action), alpha, beta)
-            print(f"Current action {action} | current k {k} | current v {v}")
-            print(f"Current alpha {alpha} | current beta {beta}")
+            k = min_value(result(board, action), alpha, beta, depth-1)
+            #print(f"Current action {action} | current k {k} | current v {v}")
+            #print(f"Current alpha {alpha} | current beta {beta}")
             if k > v:
                 v = k
                 best_move = action
             alpha = max(alpha, v)
-            if alpha >= beta:
+            if alpha >= beta or depth <= 0:
                 break
     else:
         v = math.inf
         for action in actions(board):
-            k = min_value(result(board, action), alpha, beta)
-            print(f"Current action {action} | current k {k} | current v {v}")
-            print(f"Current alpha {alpha} | current beta {beta}")
-            k = max_value(result(board, action), alpha, beta)
+             #print(f"Current action {action} | current k {k} | current v {v}")
+            #print(f"Current alpha {alpha} | current beta {beta}")
+            k = max_value(result(board, action), alpha, beta, depth -1)
             if k < v:
                 v = k
                 best_move = action
             beta = min(beta, v)
-            if alpha >= beta:
+            if alpha >= beta or depth <= 0:
                 break
     return best_move
 
-def max_value(board, alpha, beta):
-    if terminal(board):
+def max_value(board, alpha, beta, depth):
+    if terminal(board) or depth <= 0:
         return utility(board)
     v = -math.inf
     for action in actions(board):
-        v = max(v, min_value(result(board, action), alpha, beta))
+        v = max(v, min_value(result(board, action), alpha, beta, depth - 1))
         alpha = max(alpha, v)
         if alpha >= beta:
             break
     return v
 
-def min_value(board, alpha, beta):
-    if terminal(board):
+def min_value(board, alpha, beta, depth):
+    if terminal(board) or depth <= 0:
         return utility(board)
     v = math.inf
     for action in actions(board):
-        v = min(v, max_value(result(board, action), alpha, beta))
+        v = min(v, max_value(result(board, action), alpha, beta, depth -1))
         beta = min(beta, v)
-        if alpha >= beta: 
+        if alpha >= beta:
             break
     return v
