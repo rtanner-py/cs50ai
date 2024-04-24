@@ -58,6 +58,7 @@ As we know P is true, we can say that the KB is false in all mdoels where P is n
 We are left with two models. In both, P is True and Q is false. In one model, R is true; and, in the other, R is false. Due to (P $\land \neg Q) \to R$ being in our KB, we note that in the case where P is true and Q is false, R must be true.
 
 |P|Q|R|KB|
+|-----|-----|-----|-----|
 |false|false|false|false|
 |false|false|true|false|
 |false|true|false|false|
