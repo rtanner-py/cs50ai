@@ -23,9 +23,9 @@ To determine wither KB $\models a$ (answering the question, can we conclude that
 2. If, in every model where KB is true, $a$ is true as well, then KB entails $a$ (KB $\models a$)
 
 > Example
-> P: It is a Tuesday. Q: it is raining. R: Harry will go for a run.
-> KB: (P $\land \neg Q) \to R$ (P and not Q imply R)
-> KB: P $neg Q$ (P is true, Q is false)
+P: It is a Tuesday. Q: it is raining. R: Harry will go for a run.
+KB: (P $\land \neg Q) \to R$ (P and not Q imply R)
+KB: P $neg Q$ (P is true, Q is false)
 
 Enumerate all possible models:
 
