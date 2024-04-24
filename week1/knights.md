@@ -30,6 +30,7 @@ To determine wither KB $\models a$ (answering the question, can we conclude that
 Enumerate all possible models:
 
 |P|Q|R|KB|
+|-----|-----|-----|-----|
 |false|false|false||
 |false|false|true||
 |false|true|false||
@@ -44,6 +45,7 @@ Then go through every model and check whether it is true given our KB.
 As we know P is true, we can say that the KB is false in all mdoels where P is not true. We also know that Q is false, so KB is false in all models where Q is true.
 
 |P|Q|R|KB|
+|-----|-----|-----|-----|
 |false|false|false|false|
 |false|false|true|false|
 |false|true|false|false|
