@@ -65,48 +65,51 @@ Where we have two sentences (Set 1 = Count 1; Set 2 = Count 2) and set1 is a sub
 
 ### In the Sentence class
 
-- Complete known_mines
--- should return a set of all the cells in self.cells that are known to be mines;
--- Where we have a set of n items ({A,B,C}) and the count is n (ie, len(cells) == cells.count) then we know that the individual cells are mines. Otherwise, we cannot know whether any individual cell is a mine or not, and so we return an empty set.
--- So, check whether len(cells) == cells.count and, if so, return cells. 
--- Note that if len(cells) == 0 and cells.count == 0, then this will still match, but it is not a valid sentence. So need to check that len(cells) > 0 first.
-- Complete known_safes
--- Similar to the known_mines, but when len(self.cells) != 0 and cells.count == 0, then we know all the cells in self.cells are safe and can return this as a set.
-- Complete mark_mine
--- Need to remove that cell from current sentence (which should only be cells that we currently don't know the value for) and decrease the count by 1 (as there is one less mine for the remaining cells)
--- self.cells.remove(cell) will remove a cell from a sentence (cells is a set)
--- self.count -= 1
-- Complete mark_safe
--- as above, but don't need to update the count, just remove the cell.
+#### Complete known_mines
+- should return a set of all the cells in self.cells that are known to be mines;
+- Where we have a set of n items ({A,B,C}) and the count is n (ie, len(cells) == cells.count) then we know that the individual cells are mines. Otherwise, we cannot know whether any individual cell is a mine or not, and so we return an empty set.
+- So, check whether len(cells) == cells.count and, if so, return cells. 
+- Note that if len(cells) == 0 and cells.count == 0, then this will still match, but it is not a valid sentence. So need to check that len(cells) > 0 first.
+
+#### Complete known_safes
+- Similar to the known_mines, but when len(self.cells) != 0 and cells.count == 0, then we know all the cells in self.cells are safe and can return this as a set.
+
+#### Complete mark_mine
+- Need to remove that cell from current sentence (which should only be cells that we currently don't know the value for) and decrease the count by 1 (as there is one less mine for the remaining cells)
+- self.cells.remove(cell) will remove a cell from a sentence (cells is a set)
+- self.count -= 1
+
+#### Complete mark_safe
+- as above, but don't need to update the count, just remove the cell.
 
 ### In the Minesweeper class
 
-complete add_knowledge
-: This is a larger block of coding, so did this last
-: Marking the cell as a move made is just adding the cell to self.moves_made
-: Marking it as safe is just calling self.mark_safe(cell)
-: Adding a new sentence to the AI's KB based on the value of cell and count
-: Iterate through all the neighbours of the cell (i-1,j-1)->(i+1,j+1), but remembering to us cell[0]+2 and cell[1]+2 because of how range() works; Also remembering to ignore (i,j) where this is the original cell (the middle one);
-: if i,j is a mine, then reduce the count by -1; if it is in safe.safes, self.moves_made, or self.mines then ignore it as we already have knowledge of that cell and a sentence should be constructed of cells that we have no knowledge of;
-: Add any remaining cells to temporary set (unknown_neighbours)
-: create a new sentence of unknown_neighbours and count;
-: Mark any additional cells as safe/mines based on updated KB:
-- iterate through existing knowledge. 
-- if known_mines (function above) returns a non-empty list, then iterate through the cells in known_mines().copy() (avoid changing the list in place) and mark_mine(cell) for each cell;
-- Do the same thing for known_safes()
-: Add any new inferred sentences. This applies the subset rule wrong the notes
-- Loop through all the sentences in the knowledge and then loop through it again; this gets sentences A and B to compare. If the same sentence is both A and B, then skip;
-- If the two are equal, then you can remove one of them as it is a duplicate
-- If A is a subset of B, then you can create a new sentence of B - A, B.count - A.count
-: Draw any new infereces from the KB after making these changes. This stumped me for a while but, it is as simple as running through the sentence and applying the logic for  for known_mines and known_safes() again.
-- because we now have this code twice, we can abstract it into its own function (make_inferences) and call self.make_inferences() to reduce duplication.
+#### complete add_knowledge
+- This is a larger block of coding, so did this last
+- Marking the cell as a move made is just adding the cell to self.moves_made
+- Marking it as safe is just calling self.mark_safe(cell)
+- Adding a new sentence to the AI's KB based on the value of cell and count
+    - Iterate through all the neighbours of the cell (i-1,j-1)->(i+1,j+1), but remembering to us cell[0]+2 and cell[1]+2 because of how range() works; Also remembering to ignore (i,j) where this is the original cell (the middle one);
+    - if i,j is a mine, then reduce the count by -1; if it is in safe.safes, self.moves_made, or self.mines then ignore it as we already have knowledge of that cell and a sentence should be constructed of cells that we have no knowledge of;
+    - Add any remaining cells to temporary set (unknown_neighbours)
+    - Create a new sentence of unknown_neighbours and count;
+- Mark any additional cells as safe/mines based on updated KB:
+    - iterate through existing knowledge. 
+    - if known_mines (function above) returns a non-empty list, then iterate through the cells in known_mines().copy() (avoid changing the list in place) and mark_mine(cell) for each cell;
+    - Do the same thing for known_safes()
+- Add any new inferred sentences. This applies the subset rule wrong the notes
+    - Loop through all the sentences in the knowledge and then loop through it again; this gets sentences A and B to compare. If the same sentence is both A and B, then skip;
+    - If the two are equal, then you can remove one of them as it is a duplicate
+     -If A is a subset of B, then you can create a new sentence of B - A, B.count - A.count
+- Draw any new infereces from the KB after making these changes. This stumped me for a while but, it is as simple as running through the sentence and applying the logic for  for known_mines and known_safes() again.
+    - because we now have this code twice, we can abstract it into its own function (make_inferences) and call self.make_inferences() to reduce duplication.
 
-Complete make_save_move
-: return a known safe cell that isn't a move already made;
-: return none if no known safe cell
-: we have self.safes which is a set of safe cells. We can iterate through this set and, if it is not in self.moves_made (a set of previously made moves), we can return this. If there are no unexplored safe cells, return None.
+#### complete make_save_move
+- return a known safe cell that isn't a move already made  
+- return none if no known safe cell  
+- we have self.safes which is a set of safe cells. We can iterate through this set and, if it is not in self.moves_made (a set of previously made moves), we can return this. If there are no unexplored safe cells, return None  
 
-Complete make random_move
-: compile a list of all unexplored cells that are not mines (checking self.mines, a set of all cells known to be mines) and return a random.choice from this list. Returns none if there are no random moves that can be made.
+#### complete make random_move
+- compile a list of all unexplored cells that are not mines (checking self.mines, a set of all cells known to be mines) and return a random.choice from this list. Returns none if there are no random moves that can be made.  
 
 
