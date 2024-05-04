@@ -84,7 +84,7 @@ Where we have two sentences (Set 1 = Count 1; Set 2 = Count 2) and set1 is a sub
 
 ### In the Minesweeper class
 
-#### complete add_knowledge
+#### Complete add_knowledge
 - This is a larger block of coding, so did this last
 - Marking the cell as a move made is just adding the cell to self.moves_made
 - Marking it as safe is just calling self.mark_safe(cell)
