@@ -20,16 +20,18 @@ def main():
     )
 
     # Train model and make predictions
-    model = train_model(X_train, y_train)
-    predictions = model.predict(X_test)
-    sensitivity, specificity = evaluate(y_test, predictions)
+    for i in range(1,6):
+        print(f"Training model with {i} neighbours")
+        model = train_model(X_train, y_train, i)
+        predictions = model.predict(X_test)
+        sensitivity, specificity = evaluate(y_test, predictions)
 
-    # Print results
-    print(f"Correct: {(y_test == predictions).sum()}")
-    print(f"Incorrect: {(y_test != predictions).sum()}")
-    print(f"True Positive Rate: {100 * sensitivity:.2f}%")
-    print(f"True Negative Rate: {100 * specificity:.2f}%")
-
+        # Print results
+        print(f"Correct: {(y_test == predictions).sum()}")
+        print(f"Incorrect: {(y_test != predictions).sum()}")
+        print(f"True Positive Rate: {100 * sensitivity:.2f}%")
+        print(f"True Negative Rate: {100 * specificity:.2f}%")
+        print("-----------------------------------------------")
 
 def load_data(filename):
     """
@@ -108,12 +110,12 @@ def replaceWeekend(weekend: str) -> int:
     return 1 if weekend == "TRUE" else 0
 
 
-def train_model(evidence, labels):
+def train_model(evidence, labels, neighbours):
     """
     Given a list of evidence lists and a list of labels, return a
     fitted k-nearest neighbor model (k=1) trained on the data.
     """
-    model = KNeighborsClassifier(n_neighbors=1)
+    model = KNeighborsClassifier(n_neighbors=neighbours)
 
     X_training = [row for row in evidence]
     y_training = [row for row in labels]
