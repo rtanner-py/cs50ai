@@ -1,3 +1,5 @@
+# dataset can be downloaded from https://cdn.cs50.net/ai/2023/x/projects/5/gtsrb.zip
+
 import cv2
 import numpy as np
 import os
